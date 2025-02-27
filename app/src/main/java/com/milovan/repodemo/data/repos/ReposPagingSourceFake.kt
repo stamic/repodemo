@@ -9,7 +9,7 @@ private const val STARTING_KEY = 0
 private const val LOAD_DELAY_MILLIS = 3_000L
 
 
-class ReposPagingSource : PagingSource<Int, Repo>() {
+class ReposPagingSourceFake : PagingSource<Int, Repo>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Repo> {
         // If params.key is null, it is the first load, so we start loading with STARTING_KEY
@@ -30,23 +30,25 @@ class ReposPagingSource : PagingSource<Int, Repo>() {
 
         // Simulate a delay for loads adter the initial load
         if (startKey != STARTING_KEY) delay(LOAD_DELAY_MILLIS)
+        val repos = range.map { number ->
+            Repo(
+                id = number,
+                name = "Repo $number",
+                description = "This describes repo $number"
+            )
+        }
+
         return LoadResult.Page(
-            data = range.map { number ->
-                Repo(
-                    id = number,
-                    name = "Repo $number",
-                    description = "This describes repo $number"
-                )
-            },
-            prevKey = prevKey,
-            nextKey = nextKey
+            repos,
+            prevKey,
+            nextKey
         )
     }
 
     override fun getRefreshKey(state: PagingState<Int, Repo>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
-        val article = state.closestItemToPosition(anchorPosition) ?: return null
-        return ensureValidKey(key = article.id - (state.config.pageSize / 2))
+        val repo = state.closestItemToPosition(anchorPosition) ?: return null
+        return ensureValidKey(key = repo.id - (state.config.pageSize / 2))
     }
 
     private fun ensureValidKey(key: Int) = max(STARTING_KEY, key)

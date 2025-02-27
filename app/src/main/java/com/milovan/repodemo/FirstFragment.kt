@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.milovan.repodemo.data.repos.remote.RepositoriesRetrofitApi
+import com.milovan.repodemo.data.repos.remote.GitHubRetrofitApi
 import com.milovan.repodemo.databinding.FragmentFirstBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -55,24 +55,24 @@ class FirstFragment : Fragment() {
 
     private fun testCall() {
 
-        val jsonNetwork = Json {
-                ignoreUnknownKeys = true
-                coerceInputValues = true
-            }
-
-        val networkApi = Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
-            .addConverterFactory(
-                jsonNetwork.asConverterFactory("application/json".toMediaType()
-                ))
-            .build()
-            .create(RepositoriesRetrofitApi::class.java)
-
-        viewLifecycleOwner.lifecycleScope.launch {
-//            val result = networkApi.getRepositoriesTest()
-            val result = networkApi.getRepositories(20, 1)
-            Timber.d("${result.message()}")
-        }
+//        val jsonNetwork = Json {
+//                ignoreUnknownKeys = true
+//                coerceInputValues = true
+//            }
+//
+//        val networkApi = Retrofit.Builder()
+//            .baseUrl("https://api.github.com/")
+//            .addConverterFactory(
+//                jsonNetwork.asConverterFactory("application/json".toMediaType()
+//                ))
+//            .build()
+//            .create(GitHubRetrofitApi::class.java)
+//
+//        viewLifecycleOwner.lifecycleScope.launch {
+////            val result = networkApi.getRepositoriesTest()
+//            val result = networkApi.getRepositories(20, 1)
+//            Timber.d("${result.message()}")
+//        }
     }
 
 

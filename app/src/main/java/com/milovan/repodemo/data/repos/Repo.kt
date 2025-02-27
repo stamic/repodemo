@@ -1,5 +1,7 @@
 package com.milovan.repodemo.data.repos
 
+import com.milovan.repodemo.data.repos.remote.OwnerNetwork
+import com.milovan.repodemo.data.repos.remote.RepoNetwork
 
 
 data class Repo (
@@ -17,4 +19,21 @@ data class Repo (
 data class Owner(
     val login: String = "",
     val avatarUrl: String = ""
+)
+
+fun OwnerNetwork.toExternal() = Owner(
+    login = login ?: "",
+    avatarUrl = avatar_url ?: ""
+)
+
+fun RepoNetwork.toExternal() = Repo(
+    id = id,
+    name = name ?: "",
+    owner = owner?.toExternal() ?: Owner(),
+    description = description ?: "",
+    stargazersCount = stargazers_count,
+    watchersCount = watchers_count,
+    language = language ?: "",
+    forksCount = forks_count,
+    openIssues = open_issues
 )

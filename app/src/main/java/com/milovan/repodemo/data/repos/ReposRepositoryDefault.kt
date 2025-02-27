@@ -1,7 +1,12 @@
 package com.milovan.repodemo.data.repos
 
-class ReposRepositoryDefault() : ReposRepository {
-    override fun reposPagingSource(): ReposPagingSource {
-        return ReposPagingSource()
+import androidx.paging.PagingSource
+import com.milovan.repodemo.data.repos.remote.NetworkDataSource
+
+class ReposRepositoryDefault(
+    private val networkDataSource: NetworkDataSource
+) : ReposRepository {
+    override fun reposPagingSource(): PagingSource<Int, Repo> {
+        return ReposPagingSourceReal(networkDataSource)
     }
 }

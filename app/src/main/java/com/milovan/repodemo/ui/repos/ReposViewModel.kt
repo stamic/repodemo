@@ -20,7 +20,11 @@ class ReposViewModel @Inject constructor(
 ) : ViewModel() {
 
     val items: Flow<PagingData<Repo>> = Pager(
-        config = PagingConfig(pageSize = ITEMS_PER_PAGE, enablePlaceholders = false),
+        config = PagingConfig(
+            pageSize = ITEMS_PER_PAGE,
+            initialLoadSize = ITEMS_PER_PAGE,
+            enablePlaceholders = false
+        ),
         pagingSourceFactory = { itemsRepository.reposPagingSource() }
     )
         .flow
