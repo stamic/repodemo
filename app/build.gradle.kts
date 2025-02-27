@@ -43,13 +43,13 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.paging.common.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,6 +64,7 @@ dependencies {
     // Architecture Components
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.androidx.paging.runtime)
     ksp(libs.room.compiler)
 
     // Hilt

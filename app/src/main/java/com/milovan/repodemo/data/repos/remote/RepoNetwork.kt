@@ -1,11 +1,11 @@
-package com.milovan.repodemo.data.repos
+package com.milovan.repodemo.data.repos.remote
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RepositoryNetwork (
+data class RepoNetwork (
     val id: Int = 0,
     val name: String? = null,
-    val owner: Owner? = null,
+    val owner: OwnerNetwork? = null,
     val description: String? = null,
     val stargazers_count: Int = 0,
     val watchers_count: Int = 0,
@@ -15,7 +15,7 @@ data class RepositoryNetwork (
 )
 
 @Serializable
-data class Owner(
+data class OwnerNetwork(
     val login: String? = null,
     val avatar_url: String? = null
 )

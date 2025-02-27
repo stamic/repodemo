@@ -6,6 +6,11 @@
     app:startDestination="@id/FirstFragment">
 
     <fragment
+        android:id="@+id/reposFragment"
+        android:name="com.milovan.repodemo.ui.repos.ReposFragment"
+        tools:layout="@layout/fragment_repos"/>
+
+    <fragment
         android:id="@+id/FirstFragment"
         android:name="com.milovan.repodemo.FirstFragment"
         android:label="@string/first_fragment_label"

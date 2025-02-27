@@ -1,14 +1,15 @@
 package com.milovan.repodemo
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.milovan.repodemo.data.repos.RepositoriesRetrofitApi
+import com.milovan.repodemo.data.repos.remote.RepositoriesRetrofitApi
 import com.milovan.repodemo.databinding.FragmentFirstBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -19,6 +20,7 @@ import timber.log.Timber
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+@AndroidEntryPoint
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
@@ -41,8 +43,8 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-            testCall()
+            findNavController().navigate(R.id.reposFragment)
+//            testCall()
         }
     }
 
@@ -67,8 +69,9 @@ class FirstFragment : Fragment() {
             .create(RepositoriesRetrofitApi::class.java)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val result = networkApi.getRepositoriesTest()
-            Timber.d("${result.total_count}")
+//            val result = networkApi.getRepositoriesTest()
+            val result = networkApi.getRepositories(20, 1)
+            Timber.d("${result.message()}")
         }
     }
 
