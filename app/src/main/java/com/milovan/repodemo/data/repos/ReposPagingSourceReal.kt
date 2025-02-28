@@ -7,7 +7,6 @@ import okio.IOException
 import retrofit2.HttpException
 import kotlin.math.max
 
-private const val STARTING_KEY = 0
 
 class ReposPagingSourceReal(
     private val networkDataSource: NetworkDataSource
@@ -15,15 +14,13 @@ class ReposPagingSourceReal(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Repo> {
         try {
-            val startKey = params.key ?: STARTING_KEY
-            val pageNumber = startKey / params.loadSize + 1
-            val nextKey = startKey + params.loadSize
-
-            val prevKey: Int? = if (startKey - params.loadSize <= STARTING_KEY) {
-                null
+            val pageNumber = params.key ?: 1
+            val prevKey = if (pageNumber > 1) {
+                pageNumber - 1
             } else {
-                startKey - params.loadSize
+                null
             }
+            val nextKey = pageNumber + 1
 
             val response = networkDataSource.getRepositories(params.loadSize, pageNumber)
             val repos = if (response.items != null) {
@@ -46,11 +43,10 @@ class ReposPagingSourceReal(
     }
 
     override fun getRefreshKey(state: PagingState<Int, Repo>): Int? {
-        val anchorPosition = state.anchorPosition ?: 0
-        var refreshKey = anchorPosition - state.config.initialLoadSize / 2
-        refreshKey = (refreshKey / state.config.pageSize - 1) * state.config.pageSize
-        refreshKey = max(0, refreshKey)
-        return refreshKey
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
+        }
     }
 
 }
