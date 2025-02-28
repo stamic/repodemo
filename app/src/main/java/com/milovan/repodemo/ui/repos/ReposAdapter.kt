@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.milovan.repodemo.data.repos.Repo
+import com.milovan.repodemo.data.repos.local.Repo
 import com.milovan.repodemo.databinding.RepoViewholderBinding
 
 class ReposAdapter : PagingDataAdapter<Repo, RepoViewHolder>(REPO_DIFF_CALLBACK) {

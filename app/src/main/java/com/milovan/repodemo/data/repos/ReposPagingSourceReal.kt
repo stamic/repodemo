@@ -2,10 +2,11 @@ package com.milovan.repodemo.data.repos
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.milovan.repodemo.data.repos.local.Repo
+import com.milovan.repodemo.data.repos.local.toExternal
 import com.milovan.repodemo.data.repos.remote.NetworkDataSource
 import okio.IOException
 import retrofit2.HttpException
-import kotlin.math.max
 
 
 class ReposPagingSourceReal(

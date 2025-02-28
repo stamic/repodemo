@@ -17,7 +17,7 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideItemsRepository(@ApplicationContext context: Context): ReposRepository {
-        val repo = ReposRepositoryFactory.createRepository()
+        val repo = ReposRepositoryFactory.createOfflineRepository(context)
         return repo
     }
 }

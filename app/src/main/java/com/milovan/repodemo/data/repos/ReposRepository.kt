@@ -1,7 +1,7 @@
 package com.milovan.repodemo.data.repos
 
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
+import com.milovan.repodemo.data.repos.local.Repo
 import kotlinx.coroutines.flow.Flow
 
 interface ReposRepository {

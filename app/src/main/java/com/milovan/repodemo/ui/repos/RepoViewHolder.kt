@@ -1,7 +1,7 @@
 package com.milovan.repodemo.ui.repos
 
 import androidx.recyclerview.widget.RecyclerView
-import com.milovan.repodemo.data.repos.Repo
+import com.milovan.repodemo.data.repos.local.Repo
 import com.milovan.repodemo.databinding.RepoViewholderBinding
 
 class RepoViewHolder(

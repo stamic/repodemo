@@ -1,15 +1,16 @@
-package com.milovan.repodemo.data.repos
+package com.milovan.repodemo.data.repos.local
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.milovan.repodemo.data.repos.remote.OwnerNetwork
 import com.milovan.repodemo.data.repos.remote.RepoNetwork
 
-
+@Entity(tableName = "repo")
 data class Repo (
-    val id: Int = 0,
+    @PrimaryKey val id: Long = 0,
     val name: String = "",
-    val owner: Owner = Owner(),
     val description: String = "",
-    val stargazersCount: Int = 0,
+    val stars: Int = 0,
     val watchersCount: Int = 0,
     val language: String = "",
     val forksCount: Int = 0,
@@ -29,9 +30,8 @@ fun OwnerNetwork.toExternal() = Owner(
 fun RepoNetwork.toExternal() = Repo(
     id = id,
     name = name ?: "",
-    owner = owner?.toExternal() ?: Owner(),
     description = description ?: "",
-    stargazersCount = stargazers_count,
+    stars = stargazers_count,
     watchersCount = watchers_count,
     language = language ?: "",
     forksCount = forks_count,

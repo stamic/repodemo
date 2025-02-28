@@ -43,6 +43,8 @@ android {
 }
 
 dependencies {
+    val roomVersion = "2.6.1"
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -64,6 +66,7 @@ dependencies {
     // Architecture Components
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation (libs.androidx.room.paging)
     implementation(libs.androidx.paging.runtime)
     ksp(libs.room.compiler)
 

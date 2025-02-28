@@ -2,6 +2,7 @@ package com.milovan.repodemo.data.repos
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.milovan.repodemo.data.repos.local.Repo
 import kotlinx.coroutines.delay
 import kotlin.math.max
 
@@ -32,7 +33,7 @@ class ReposPagingSourceFake : PagingSource<Int, Repo>() {
         if (startKey != STARTING_KEY) delay(LOAD_DELAY_MILLIS)
         val repos = range.map { number ->
             Repo(
-                id = number,
+                id = number.toLong(),
                 name = "Repo $number",
                 description = "This describes repo $number"
             )
@@ -48,7 +49,7 @@ class ReposPagingSourceFake : PagingSource<Int, Repo>() {
     override fun getRefreshKey(state: PagingState<Int, Repo>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
         val repo = state.closestItemToPosition(anchorPosition) ?: return null
-        return ensureValidKey(key = repo.id - (state.config.pageSize / 2))
+        return ensureValidKey(key = repo.id.toInt() - (state.config.pageSize / 2))
     }
 
     private fun ensureValidKey(key: Int) = max(STARTING_KEY, key)

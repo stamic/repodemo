@@ -3,7 +3,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RepoNetwork (
-    val id: Int = 0,
+    val id: Long = 0,
     val name: String? = null,
     val owner: OwnerNetwork? = null,
     val description: String? = null,
