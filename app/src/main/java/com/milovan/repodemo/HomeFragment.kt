@@ -36,11 +36,10 @@ class HomeFragment : Fragment() {
 
         binding.btnExample1.setOnClickListener {
             findNavController().navigate(R.id.reposFragment)
-//            testCall()
         }
 
         binding.btnExample2.setOnClickListener {
-
+            findNavController().navigate(R.id.repos1Fragment)
         }
     }
 

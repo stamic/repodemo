@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.milovan.repodemo.data.repos.local.Repo
 import com.milovan.repodemo.databinding.RepoViewholderBinding
 
-class ReposAdapter : PagingDataAdapter<Repo, RepoViewHolder>(REPO_DIFF_CALLBACK) {
+class ReposAdapter : PagingDataAdapter<RepoAndFlag, RepoViewHolder>(REPO_DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder =
         RepoViewHolder(
@@ -26,11 +26,11 @@ class ReposAdapter : PagingDataAdapter<Repo, RepoViewHolder>(REPO_DIFF_CALLBACK)
     }
 
     companion object {
-        private val REPO_DIFF_CALLBACK = object : DiffUtil.ItemCallback<Repo>() {
-            override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean =
-                oldItem.id == newItem.id
+        private val REPO_DIFF_CALLBACK = object : DiffUtil.ItemCallback<RepoAndFlag>() {
+            override fun areItemsTheSame(oldItem: RepoAndFlag, newItem: RepoAndFlag): Boolean =
+                oldItem.repo.id == newItem.repo.id
 
-            override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean =
+            override fun areContentsTheSame(oldItem: RepoAndFlag, newItem: RepoAndFlag): Boolean =
                 oldItem == newItem
         }
     }

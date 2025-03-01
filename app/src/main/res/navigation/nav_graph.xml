@@ -12,6 +12,12 @@
         android:label="Repos"/>
 
     <fragment
+        android:id="@+id/repos1Fragment"
+        android:name="com.milovan.repodemo.ui.repos.Repos1Fragment"
+        tools:layout="@layout/fragment_repos"
+        android:label="Repos"/>
+
+    <fragment
         android:id="@+id/homeFragment"
         android:name="com.milovan.repodemo.HomeFragment"
         android:label="Primeri"

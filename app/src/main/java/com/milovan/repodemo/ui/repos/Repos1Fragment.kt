@@ -11,19 +11,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.milovan.repodemo.databinding.FragmentReposBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ReposFragment : Fragment() {
+class Repos1Fragment : Fragment() {
     private var _binding: FragmentReposBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ReposViewModel by viewModels()
+    private val viewModel: Repos1ViewModel by viewModels()
     lateinit var reposAdapter: ReposAdapter
 
     override fun onCreateView(
@@ -59,4 +57,3 @@ class ReposFragment : Fragment() {
         }
     }
 }
-
