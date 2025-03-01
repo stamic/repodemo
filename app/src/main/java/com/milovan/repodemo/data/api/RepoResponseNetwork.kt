@@ -1,4 +1,4 @@
-package com.milovan.repodemo.data.repos.remote
+package com.milovan.repodemo.data.api
 import kotlinx.serialization.Serializable
 
 @Serializable

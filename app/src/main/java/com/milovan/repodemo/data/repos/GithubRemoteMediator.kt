@@ -25,7 +25,7 @@ import com.example.android.codelabs.paging.db.RemoteKeys
 import com.milovan.repodemo.data.repos.local.Repo
 import com.milovan.repodemo.data.repos.local.RepoDatabase
 import com.milovan.repodemo.data.repos.local.toExternal
-import com.milovan.repodemo.data.repos.remote.NetworkDataSource
+import com.milovan.repodemo.data.repos.remote.ReposNetworkDataSource
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -33,7 +33,7 @@ private const val GITHUB_STARTING_PAGE_INDEX = 1
 
 @OptIn(ExperimentalPagingApi::class)
 class GithubRemoteMediator(
-    private val networkDataSource: NetworkDataSource,
+    private val networkDataSource: ReposNetworkDataSource,
     private val repoDatabase: RepoDatabase
 ) : RemoteMediator<Int, Repo>() {
 

@@ -4,11 +4,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.milovan.repodemo.data.repos.local.Repo
-import com.milovan.repodemo.data.repos.remote.NetworkDataSource
+import com.milovan.repodemo.data.repos.remote.ReposNetworkDataSource
 import kotlinx.coroutines.flow.Flow
 
 class ReposRepositorySimpleOnline(
-    private val networkDataSource: NetworkDataSource
+    private val networkDataSource: ReposNetworkDataSource
 ) : ReposRepository {
 
     override fun getReposStream(): Flow<PagingData<Repo>> {

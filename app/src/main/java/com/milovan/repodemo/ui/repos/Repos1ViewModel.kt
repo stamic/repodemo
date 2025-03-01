@@ -19,6 +19,6 @@ class Repos1ViewModel @Inject constructor(
         pagingData.map { repo -> RepoAndFlag(repo, false) }
     }
 
-    val items2 = items1.map { p -> p.filter { r -> r.repo.name.contains("ko") } }
+    val items2 = items1
 
 }

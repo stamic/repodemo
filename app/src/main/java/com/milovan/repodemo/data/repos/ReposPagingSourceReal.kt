@@ -4,13 +4,13 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.milovan.repodemo.data.repos.local.Repo
 import com.milovan.repodemo.data.repos.local.toExternal
-import com.milovan.repodemo.data.repos.remote.NetworkDataSource
+import com.milovan.repodemo.data.repos.remote.ReposNetworkDataSource
 import okio.IOException
 import retrofit2.HttpException
 
 
 class ReposPagingSourceReal(
-    private val networkDataSource: NetworkDataSource
+    private val networkDataSource: ReposNetworkDataSource
 ) : PagingSource<Int, Repo>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Repo> {

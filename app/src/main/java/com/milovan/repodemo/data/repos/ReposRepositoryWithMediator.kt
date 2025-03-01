@@ -7,11 +7,11 @@ import androidx.paging.PagingData
 import com.example.android.codelabs.paging.data.GithubRemoteMediator
 import com.milovan.repodemo.data.repos.local.Repo
 import com.milovan.repodemo.data.repos.local.RepoDatabase
-import com.milovan.repodemo.data.repos.remote.NetworkDataSource
+import com.milovan.repodemo.data.repos.remote.ReposNetworkDataSource
 import kotlinx.coroutines.flow.Flow
 
 class ReposRepositoryWithMediator(
-    private val networkDataSource: NetworkDataSource,
+    private val networkDataSource: ReposNetworkDataSource,
     private val database: RepoDatabase
 ) : ReposRepository {
     override fun getReposStream(): Flow<PagingData<Repo>> {

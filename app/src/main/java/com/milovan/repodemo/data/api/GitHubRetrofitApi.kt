@@ -1,9 +1,10 @@
-package com.milovan.repodemo.data.repos.remote
+package com.milovan.repodemo.data.api
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 fun createGithubService(): GitHubRetrofitApi {
@@ -25,11 +26,14 @@ fun createGithubService(): GitHubRetrofitApi {
 
 interface GitHubRetrofitApi {
     @GET("/search/repositories?q=language:kotlin&order=desc&sort=stars")
-    suspend fun getRepositories(
+    suspend fun getRepos(
         @Query("per_page") perPage: Int,
         @Query("page") page: Int
     ): RepoResponseNetwork
 
-    @GET("/search/repositories?q=language:kotlin&order=desc&sort=stars&per_page=20&page=1")
-    suspend fun getRepositoriesTest(): RepoResponseNetwork
+    @GET("/repos/{owner}/{name}")
+    suspend fun getRepoDetails(
+        @Path("owner") owner: String,
+        @Path("name") name: String
+    ): RepoDetailsNetwork
 }
