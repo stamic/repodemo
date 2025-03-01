@@ -7,8 +7,6 @@ import com.milovan.repodemo.data.repos.local.Repo
 import com.milovan.repodemo.data.repos.remote.NetworkDataSource
 import kotlinx.coroutines.flow.Flow
 
-private const val ITEMS_PER_PAGE = 50
-
 class ReposRepositorySimpleOnline(
     private val networkDataSource: NetworkDataSource
 ) : ReposRepository {
@@ -16,7 +14,7 @@ class ReposRepositorySimpleOnline(
     override fun getReposStream(): Flow<PagingData<Repo>> {
         val reposStream: Flow<PagingData<Repo>> = Pager(
             config = PagingConfig(
-                pageSize = ITEMS_PER_PAGE,
+                pageSize = Consts.ITEMS_PER_PAGE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { ReposPagingSourceReal(networkDataSource) }

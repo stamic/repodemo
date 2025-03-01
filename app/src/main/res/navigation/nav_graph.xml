@@ -5,6 +5,13 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.milovan.repodemo.ui.details.DetailsFragment"
+        tools:layout="@layout/fragment_details"
+        android:label="Details"/>
+
     <fragment
         android:id="@+id/reposFragment"
         android:name="com.milovan.repodemo.ui.repos.ReposFragment"
@@ -22,4 +29,13 @@
         android:name="com.milovan.repodemo.HomeFragment"
         android:label="Primeri"
         tools:layout="@layout/fragment_home"/>
+
+    <action android:id="@+id/actionToDetailsFragment"
+        app:destination="@id/detailsFragment">
+        <argument
+            android:name="repoId"
+            app:argType="string"
+            android:defaultValue="" />
+    </action>
+
 </navigation>

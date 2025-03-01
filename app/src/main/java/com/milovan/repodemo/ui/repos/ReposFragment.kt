@@ -10,10 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.milovan.repodemo.databinding.FragmentReposBinding
+import com.milovan.repodemo.ui.details.DetailsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,6 +27,18 @@ class ReposFragment : Fragment() {
 
     private val viewModel: ReposViewModel by viewModels()
     lateinit var reposAdapter: ReposAdapter
+
+    val adapterListener = object : ReposAdapter.Listener {
+        override fun onItemClicked(itemId: Long) {
+            val action = DetailsFragmentDirections.actionToDetailsFragment(itemId.toString())
+            findNavController().navigate(action)
+        }
+
+        override fun onFavoriteClicked(itemId: Long) {
+            TODO("Not yet implemented")
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +52,7 @@ class ReposFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        reposAdapter = ReposAdapter()
+        reposAdapter = ReposAdapter(adapterListener)
         binding.bindAdapter(reposAdapter)
 
         viewLifecycleOwner.lifecycleScope.launch {

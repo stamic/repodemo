@@ -1,21 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="6dp">
-
-    <TextView
-        android:id="@+id/repoId"
-        android:layout_width="wrap_content"
+    android:clickable="true">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Repo Id"/>
+        android:orientation="vertical"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="48dp">
 
-    <TextView
-        android:id="@+id/repoName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Repo Name"/>
+        <TextView
+            android:id="@+id/textRepoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Repo Id"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textOwnerLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="login"/>
+
+        <TextView
+            android:id="@+id/textRepoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Repo Name"/>
+
+        <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"/>
+
+        <TextView
+            android:id="@+id/textLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Language"/>
+
+        <TextView
+            android:id="@+id/textStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"/>
+
+        <TextView
+            android:id="@+id/textForks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forks"/>
+
+        <TextView
+            android:id="@+id/textIssues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Issues"/>
+
+        <TextView
+            android:id="@+id/textWatchers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Watchers"/>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:layout_gravity="end|center_vertical"
+        android:src="@drawable/ic_favorite_24dp_filled"
+        />
+
+</FrameLayout>

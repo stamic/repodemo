@@ -10,8 +10,6 @@ import com.milovan.repodemo.data.repos.local.RepoDatabase
 import com.milovan.repodemo.data.repos.remote.NetworkDataSource
 import kotlinx.coroutines.flow.Flow
 
-private const val ITEMS_PER_PAGE = 50
-
 class ReposRepositoryWithMediator(
     private val networkDataSource: NetworkDataSource,
     private val database: RepoDatabase
@@ -20,7 +18,7 @@ class ReposRepositoryWithMediator(
         @OptIn(ExperimentalPagingApi::class)
         val reposStream: Flow<PagingData<Repo>> = Pager(
             config = PagingConfig(
-                pageSize = ITEMS_PER_PAGE,
+                pageSize = Consts.ITEMS_PER_PAGE,
                 enablePlaceholders = false
             ),
             remoteMediator = GithubRemoteMediator(
