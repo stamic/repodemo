@@ -6,8 +6,8 @@ import com.milovan.repodemo.data.database.RepoDemoDatabase
 import com.milovan.repodemo.data.database.favoritecontribs.FavoriteContributorDao
 import com.milovan.repodemo.data.details.RepoDetailsRepository
 import com.milovan.repodemo.data.details.RepoDetailsRepositoryDefault
-import com.milovan.repodemo.data.favorites.FavoriteContributorsRepository
-import com.milovan.repodemo.data.favorites.FavoriteContributorsRepositoryDefault
+import com.milovan.repodemo.data.favoritecontribs.FavoriteContributorsRepository
+import com.milovan.repodemo.data.favoritecontribs.FavoriteContributorsRepositoryDefault
 import com.milovan.repodemo.data.network.NetworkDataSource
 import com.milovan.repodemo.data.network.NetworkDataSourceRetrofit
 import com.milovan.repodemo.data.repos.ReposRepository

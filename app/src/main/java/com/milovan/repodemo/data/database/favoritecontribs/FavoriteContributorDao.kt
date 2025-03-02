@@ -13,9 +13,12 @@ interface FavoriteContributorDao {
     @Query("SELECT * FROM favorite_contributor")
     suspend fun getAll(): List<FavoriteContributor>
 
+    @Query("SELECT * FROM favorite_contributor WHERE login = :name")
+    suspend fun getByLoginName(name: String): FavoriteContributor?
+
     @Upsert
     suspend fun upsert(favoriteContributor: FavoriteContributor)
 
-    @Query("DELETE FROM favorite_contributor WHERE login = :loginName")
-    suspend fun deleteByLoginName(loginName: String): Int
+    @Query("DELETE FROM favorite_contributor WHERE login = :name")
+    suspend fun deleteByLoginName(name: String): Int
 }

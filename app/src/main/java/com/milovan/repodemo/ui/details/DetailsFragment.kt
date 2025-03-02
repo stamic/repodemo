@@ -30,7 +30,7 @@ class DetailsFragment : Fragment() {
     private val viewModel: DetailsViewModel by viewModels()
     private lateinit var contributorsAdapter: ContributorsAdapter
     private val itemFavoriteClickHandler = { name: String ->
-        viewModel.saveFavoriteContributor(name)
+        viewModel.toggleFavoriteContributor(name)
     }
 
     override fun onCreateView(

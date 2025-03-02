@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.milovan.repodemo.data.details.Contributor
 import com.milovan.repodemo.data.details.RepoDetails
 import com.milovan.repodemo.data.details.RepoDetailsRepository
-import com.milovan.repodemo.data.favorites.FavoriteContributorsRepository
+import com.milovan.repodemo.data.favoritecontribs.FavoriteContributorsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -95,15 +95,24 @@ class DetailsViewModel @Inject constructor(
         _contributorsUiState.value = ContributorsUistate.Success(result)
     }
 
-    fun saveFavoriteContributor(name: String) {
+    fun toggleFavoriteContributor(name: String) {
+        viewModelScope.launch {
+            val favoriteContributor = favoritesRepository.getByLoginName(name)
+            if (favoriteContributor == null) {
+                saveFavoriteContributor(name)
+            } else {
+                favoritesRepository.deleteByLoginName(name)
+            }
+            updateContributorsUiState()
+        }
+    }
+
+    private suspend fun saveFavoriteContributor(name: String) {
         val successState = _contributorsUiState.value
         if (successState is ContributorsUistate.Success) {
             val contributor = successState.contributors.find { it.contributor.login == name }
             if (contributor != null) {
-                viewModelScope.launch {
-                    favoritesRepository.create(name, contributor.contributor.avatarUrl)
-                    updateContributorsUiState()
-                }
+                favoritesRepository.create(name, contributor.contributor.avatarUrl)
             }
         }
     }

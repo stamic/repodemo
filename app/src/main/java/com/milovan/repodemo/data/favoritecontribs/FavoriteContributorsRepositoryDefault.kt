@@ -1,4 +1,4 @@
-package com.milovan.repodemo.data.favorites
+package com.milovan.repodemo.data.favoritecontribs
 
 import com.milovan.repodemo.data.database.favoritecontribs.FavoriteContributor
 import com.milovan.repodemo.data.database.favoritecontribs.FavoriteContributorDao
@@ -19,7 +19,11 @@ class FavoriteContributorsRepositoryDefault @Inject constructor(
         return dao.getAll()
     }
 
-    override suspend fun deleteByLogin(login: String) {
+    override suspend fun getByLoginName(name: String): FavoriteContributor? {
+        return dao.getByLoginName(name)
+    }
+
+    override suspend fun deleteByLoginName(login: String) {
         dao.deleteByLoginName(login)
     }
 }
