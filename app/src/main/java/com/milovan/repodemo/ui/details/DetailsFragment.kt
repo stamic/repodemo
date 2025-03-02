@@ -29,8 +29,8 @@ class DetailsFragment : Fragment() {
 
     private val viewModel: DetailsViewModel by viewModels()
     private lateinit var contributorsAdapter: ContributorsAdapter
-    private val itemFavoriteClickHandler = { name: String ->
-        viewModel.toggleFavoriteContributor(name)
+    private val itemFavoriteClickHandler = { id: Long ->
+        viewModel.toggleFavoriteContributor(id)
     }
 
     override fun onCreateView(

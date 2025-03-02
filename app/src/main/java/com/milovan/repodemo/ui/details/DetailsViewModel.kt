@@ -95,24 +95,28 @@ class DetailsViewModel @Inject constructor(
         _contributorsUiState.value = ContributorsUistate.Success(result)
     }
 
-    fun toggleFavoriteContributor(name: String) {
+    fun toggleFavoriteContributor(id: Long) {
         viewModelScope.launch {
-            val favoriteContributor = favoritesRepository.getByLoginName(name)
+            val favoriteContributor = favoritesRepository.getById(id)
             if (favoriteContributor == null) {
-                saveFavoriteContributor(name)
+                saveFavoriteContributor(id)
             } else {
-                favoritesRepository.deleteByLoginName(name)
+                favoritesRepository.deleteById(id)
             }
             updateContributorsUiState()
         }
     }
 
-    private suspend fun saveFavoriteContributor(name: String) {
+    private suspend fun saveFavoriteContributor(id: Long) {
         val successState = _contributorsUiState.value
         if (successState is ContributorsUistate.Success) {
-            val contributor = successState.contributors.find { it.contributor.login == name }
-            if (contributor != null) {
-                favoritesRepository.create(name, contributor.contributor.avatarUrl)
+            val contribUi = successState.contributors.find { it.contributor.id == id }
+            if (contribUi != null) {
+                favoritesRepository.create(
+                    contribUi.contributor.id,
+                    contribUi.contributor.login,
+                    contribUi.contributor.avatarUrl
+                )
             }
         }
     }

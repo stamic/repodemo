@@ -21,6 +21,7 @@ data class RepoDetails(
 )
 
 data class Contributor(
+    val id: Long,
     val login: String,
     val avatarUrl: String
 )
@@ -31,6 +32,7 @@ data class RepoDetailsAndContributors(
 )
 
 fun ContributorNetwork.toExternal() = Contributor(
+    id = id ?: 0,
     login = login ?: "",
     avatarUrl = avatarUrl ?: ""
 )

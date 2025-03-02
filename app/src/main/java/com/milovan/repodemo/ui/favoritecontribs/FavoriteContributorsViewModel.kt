@@ -28,9 +28,9 @@ class FavoriteContributorsViewModel @Inject constructor(
         initialUpdate()
     }
 
-    fun delete(name: String) {
+    fun delete(id: Long) {
         viewModelScope.launch {
-            favoriteRepository.deleteByLoginName(name)
+            favoriteRepository.deleteById(id)
             fetchAndUpdate()
         }
     }

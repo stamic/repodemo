@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import com.milovan.repodemo.databinding.ViewholderContributorBinding
 
 class ContributorsAdapter(
-    val onFavoriteClicked: (loginName: String) -> Unit
+    val onFavoriteClicked: (id: Long) -> Unit
 ) : ListAdapter<ContributorUi, ContributorViewHolder>(DiffCallback) {
 
     private val itemFavoriteClickHandler = { ndx: Int ->
         val item = getItem(ndx)
         if (item != null) {
-            onFavoriteClicked(item.contributor.login)
+            onFavoriteClicked(item.contributor.id)
         }
     }
 
