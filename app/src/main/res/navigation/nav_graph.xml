@@ -5,6 +5,11 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/favoriteContributorsFragment"
+        android:name="com.milovan.repodemo.ui.favoritecontribs.FavoriteContributorsFragment"
+        tools:layout="@layout/fragment_favorites"
+        android:label="Favorite Contributors"/>
 
     <fragment
         android:id="@+id/detailsFragment"

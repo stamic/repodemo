@@ -20,10 +20,9 @@
         android:text="Name"/>
 
     <Button
-        android:id="@+id/btnFavorite"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="?selectableItemBackgroundBorderless"
+        android:id="@+id/btnRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="Remove"/>
 

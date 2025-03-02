@@ -40,7 +40,7 @@ class ContributorsAdapter(
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<ContributorUi>() {
             override fun areItemsTheSame(oldItem: ContributorUi, newItem: ContributorUi): Boolean {
-                return oldItem.contributor.login == newItem.contributor.login
+                return oldItem.contributor.id == newItem.contributor.id
             }
 
             override fun areContentsTheSame(

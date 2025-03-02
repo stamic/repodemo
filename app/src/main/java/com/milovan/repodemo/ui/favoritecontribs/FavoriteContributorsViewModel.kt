@@ -13,6 +13,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 private fun FavoriteContributor.toUi() = FavoriteUi(
+    id = id,
     name = login,
     avatarUrl = avatarUrl
 )
@@ -28,7 +29,7 @@ class FavoriteContributorsViewModel @Inject constructor(
         initialUpdate()
     }
 
-    fun delete(id: Long) {
+    fun deleteItem(id: Long) {
         viewModelScope.launch {
             favoriteRepository.deleteById(id)
             fetchAndUpdate()
@@ -43,7 +44,7 @@ class FavoriteContributorsViewModel @Inject constructor(
 
     private suspend fun fetchAndUpdate() {
         try {
-           val favorites = favoriteRepository.getAll()
+            val favorites = favoriteRepository.getAll()
             val favoritesUi = favorites.map { it.toUi() }
             _favoriteUiState.value = FavoriteUiState.Success(favoritesUi)
         } catch (e: IOException) {

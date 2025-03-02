@@ -41,6 +41,10 @@ class HomeFragment : Fragment() {
         binding.btnExample2.setOnClickListener {
             findNavController().navigate(R.id.repos1Fragment)
         }
+
+        binding.btnFavoriteContribs.setOnClickListener {
+            findNavController().navigate(R.id.favoriteContributorsFragment)
+        }
     }
 
     override fun onDestroyView() {
