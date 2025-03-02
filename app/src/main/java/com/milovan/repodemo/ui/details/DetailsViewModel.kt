@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.milovan.repodemo.data.details.Contributor
 import com.milovan.repodemo.data.details.RepoDetails
 import com.milovan.repodemo.data.details.RepoDetailsRepository
+import com.milovan.repodemo.data.favorites.FavoriteContributorsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
@@ -28,7 +28,8 @@ sealed interface ContributorsUistate {
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val repository: RepoDetailsRepository
+    private val detailsRepository: RepoDetailsRepository,
+    private val favoritesRepository: FavoriteContributorsRepository
 ) : ViewModel() {
     private val _detailsUiState = MutableStateFlow<DetailsUiState>(DetailsUiState.Loading)
     val detailsUiState = _detailsUiState.asStateFlow()
@@ -38,8 +39,8 @@ class DetailsViewModel @Inject constructor(
     )
     val contributorsUiState = _contributorsUiState.asStateFlow()
 
+    private val _contributors = mutableListOf<Contributor>()
 
-    private val favorites = hashSetOf<String>("udalov", "mglukhikh")
 
     fun setRepository(owner: String, name: String) {
         fetchDetailsAndContributors(owner, name)
@@ -47,49 +48,65 @@ class DetailsViewModel @Inject constructor(
 
     private fun fetchDetailsAndContributors(owner: String, name: String) {
         viewModelScope.launch {
-            val details = fetchDetails(owner, name)
-            _detailsUiState.update { details }
-            if (details is DetailsUiState.Success) {
-                val contributors = fetchContributors(details.repoDetails.contributorsUrl)
-                _contributorsUiState.update { contributors }
+            fetchDetails(owner, name)
+            val detailsSuccess = _detailsUiState.value
+            if (detailsSuccess is DetailsUiState.Success) {
+                fetchContributors(detailsSuccess.repoDetails.contributorsUrl)
             }
         }
     }
 
-    private suspend fun fetchDetails(owner: String, name: String): DetailsUiState {
-       val result = try {
-            val details = repository.getRepoDetails(owner, name)
-           DetailsUiState.Success(details)
+    private suspend fun fetchDetails(owner: String, name: String) {
+       try {
+            val details = detailsRepository.getRepoDetails(owner, name)
+           _detailsUiState.value = DetailsUiState.Success(details)
         } catch (e: IOException) {
-           DetailsUiState.Error(e)
+           _detailsUiState.value = DetailsUiState.Error(e)
         } catch (e: HttpException) {
-           DetailsUiState.Error(e)
+           _detailsUiState.value = DetailsUiState.Error(e)
         }
 
-        return result
     }
 
-    private suspend fun fetchContributors(url: String): ContributorsUistate {
-        val result = try {
-            val contributors = repository.getContributors(url)
-            val contributorsFavorite = addFavoriteFlag(contributors)
-            ContributorsUistate.Success(contributorsFavorite)
+    private suspend fun fetchContributors(url: String) {
+        _contributors.clear()
+        try {
+            _contributors.addAll(detailsRepository.getContributors(url))
+            updateContributorsUiState()
         } catch (e: IOException) {
-            ContributorsUistate.Error(e)
+            _contributorsUiState.value = ContributorsUistate.Error(e)
         } catch (e: HttpException) {
-            ContributorsUistate.Error(e)
+            _contributorsUiState.value = ContributorsUistate.Error(e)
         }
 
-        return result
     }
 
-    private fun addFavoriteFlag(contributors: List<Contributor>): List<ContributorUi> {
+    private suspend fun updateContributorsUiState() {
+        val favoritesList = favoritesRepository.getAll()
+        val favoriteSet = favoritesList.map { it.login }.toHashSet()
+
         val result = mutableListOf<ContributorUi>()
-        for (contrib in contributors) {
-            val isFavorite = favorites.contains(contrib.login)
+        for (contrib in _contributors) {
+            val isFavorite = favoriteSet.contains(contrib.login)
             val contribUi = ContributorUi(contrib, isFavorite)
             result.add(contribUi)
         }
-        return result
+
+        _contributorsUiState.value = ContributorsUistate.Success(result)
     }
+
+    fun saveFavoriteContributor(name: String) {
+        val successState = _contributorsUiState.value
+        if (successState is ContributorsUistate.Success) {
+            val contributor = successState.contributors.find { it.contributor.login == name }
+            if (contributor != null) {
+                viewModelScope.launch {
+                    favoritesRepository.create(name, contributor.contributor.avatarUrl)
+                    updateContributorsUiState()
+                }
+            }
+        }
+    }
+
+
 }

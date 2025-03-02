@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.milovan.repodemo.databinding.FragmentDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 // ne uspevam da uradim ovako
 //@Parcelize
@@ -31,7 +30,7 @@ class DetailsFragment : Fragment() {
     private val viewModel: DetailsViewModel by viewModels()
     private lateinit var contributorsAdapter: ContributorsAdapter
     private val itemFavoriteClickHandler = { name: String ->
-        Timber.d("clicked favorite $name")
+        viewModel.saveFavoriteContributor(name)
     }
 
     override fun onCreateView(
