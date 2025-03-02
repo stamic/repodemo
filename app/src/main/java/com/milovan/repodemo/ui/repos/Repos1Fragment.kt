@@ -36,7 +36,7 @@ class Repos1Fragment : Fragment() {
         }
 
         override fun onFavoriteClicked(repo: Repo) {
-            TODO("Not yet implemented")
+            viewModel.toggleFavoriteRepo(repo)
         }
 
     }
@@ -58,7 +58,7 @@ class Repos1Fragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.items2.collectLatest {
+                viewModel.pagedReposUiStream.collectLatest {
                     reposAdapter.submitData(it)
                 }
             }

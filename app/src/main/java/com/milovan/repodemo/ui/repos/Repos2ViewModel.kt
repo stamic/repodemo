@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class Repos2ViewModel @Inject constructor(
     @RepoSimple private val itemsRepository: ReposRepository,
-    private val favoriteReposRepository: FavoriteReposRepository,
+    private val favoriteReposRepository: FavoriteReposRepository
 ) : ViewModel() {
 
     private val _favoriteIdsStream: Flow<HashSet<Long>> =
