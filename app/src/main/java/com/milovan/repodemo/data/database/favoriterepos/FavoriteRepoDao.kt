@@ -17,7 +17,7 @@ interface FavoriteRepoDao {
     suspend fun getById(id: Long): FavoriteRepo?
 
     @Upsert
-    suspend fun upsert(favoriteContributor: FavoriteRepo)
+    suspend fun upsert(favoriteRepo: FavoriteRepo)
 
     @Query("DELETE FROM favorite_repo WHERE id = :id")
     suspend fun deleteById(id: Long): Int

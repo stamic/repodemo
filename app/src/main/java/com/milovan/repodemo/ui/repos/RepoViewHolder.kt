@@ -1,6 +1,7 @@
 package com.milovan.repodemo.ui.repos
 
 import androidx.recyclerview.widget.RecyclerView
+import com.milovan.repodemo.R
 import com.milovan.repodemo.databinding.ViewholderRepoBinding
 
 class RepoViewHolder(
@@ -27,6 +28,12 @@ class RepoViewHolder(
         binding.apply {
             textRepoId.text = item.repo.id.toString()
             textRepoName.text = item.repo.name
+            val imgResource = if (item.isFavorite) {
+                R.drawable.ic_favorite_24dp_filled
+            } else {
+                R.drawable.ic_favorite_24dp_outlined
+            }
+            btnFavorite.setImageResource(imgResource)
         }
     }
 }

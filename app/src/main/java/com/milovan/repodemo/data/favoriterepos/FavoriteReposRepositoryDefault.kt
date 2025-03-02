@@ -2,18 +2,30 @@ package com.milovan.repodemo.data.favoriterepos
 
 import com.milovan.repodemo.data.database.favoriterepos.FavoriteRepo
 import com.milovan.repodemo.data.database.favoriterepos.FavoriteRepoDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FavoriteReposRepositoryDefault @Inject constructor(
     private val dao: FavoriteRepoDao
 ) : FavoriteReposRepository {
-    override suspend fun create(id: Long, login: String, avatarUrl: String) {
-        val contributor = FavoriteRepo(
+    override suspend fun create(id: Long, name: String, avatarUrl: String) {
+        val repo = FavoriteRepo(
             id,
-            login,
+            name,
             avatarUrl
         )
-        dao.upsert(contributor)
+        dao.upsert(repo)
+    }
+
+    override fun getStream(): Flow<List<FavoriteRepo>> {
+        return dao.observeAll().map { favs ->
+            withContext(Dispatchers.Default) {
+                favs.map { it.copy() }
+            }
+        }
     }
 
     override suspend fun getAll(): List<FavoriteRepo> {

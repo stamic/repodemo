@@ -15,7 +15,7 @@ import com.milovan.repodemo.data.database.repos.RepoDao
     Repo::class,
     RemoteKeys::class,
     FavoriteContributor::class,
-    FavoriteRepo::class], version = 1, exportSchema = false)
+    FavoriteRepo::class], version = 2, exportSchema = false)
 abstract class RepoDemoDatabase : RoomDatabase() {
     abstract fun reposDao(): RepoDao
     abstract fun remoteKeysDao(): RemoteKeysDao
