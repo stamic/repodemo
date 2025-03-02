@@ -36,6 +36,10 @@ class RepoViewHolder(
                 textForks.text = "Forks: ${forksCount}"
                 textIssues.text = "Issues: ${openIssues}"
                 textWatchers.text = "Watchers: $watchersCount"
+
+                Glide.with(binding.root.context)
+                    .load(ownerAvatarUrl)
+                    .into(binding.imgAvatar)
             }
 
             val imgResource = if (item.isFavorite) {
@@ -44,10 +48,6 @@ class RepoViewHolder(
                 R.drawable.ic_favorite_24dp_outlined
             }
             btnFavorite.setImageResource(imgResource)
-
-            Glide.with(binding.root.context)
-                .load(item.repo.ownerAvatarUrl)
-                .into(binding.imgAvatar)
         }
     }
 }
