@@ -19,13 +19,13 @@
         android:layout_gravity="center_vertical"
         android:text="Name"/>
 
-    <ImageButton
+    <Button
         android:id="@+id/btnFavorite"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="?selectableItemBackgroundBorderless"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_favorite_24dp_filled" />
+        android:text="Remove"/>
 
 </LinearLayout>
 
