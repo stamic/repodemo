@@ -1,8 +1,8 @@
-package com.milovan.repodemo.data.repos.local
+package com.milovan.repodemo.data.database.repos
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.milovan.repodemo.data.api.RepoNetwork
+import com.milovan.repodemo.data.network.repos.RepoNetwork
 
 @Entity(tableName = "repo")
 data class Repo (

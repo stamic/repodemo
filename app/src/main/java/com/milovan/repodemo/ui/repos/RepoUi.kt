@@ -1,6 +1,7 @@
 package com.milovan.repodemo.ui.repos
 
-import com.milovan.repodemo.data.repos.local.Repo
+import com.milovan.repodemo.data.database.repos.Repo
+
 
 data class RepoUi(
     val repo: Repo,

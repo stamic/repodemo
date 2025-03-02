@@ -3,12 +3,13 @@ package com.milovan.repodemo.data.repos
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.milovan.repodemo.data.repos.local.Repo
-import com.milovan.repodemo.data.repos.remote.ReposNetworkDataSource
+import com.milovan.repodemo.data.database.repos.Repo
+import com.milovan.repodemo.data.network.NetworkDataSource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class ReposRepositorySimpleOnline(
-    private val networkDataSource: ReposNetworkDataSource
+class ReposRepositorySimpleOnline @Inject constructor(
+    private val networkDataSource: NetworkDataSource
 ) : ReposRepository {
 
     override fun getReposStream(): Flow<PagingData<Repo>> {
@@ -17,7 +18,7 @@ class ReposRepositorySimpleOnline(
                 pageSize = Consts.ITEMS_PER_PAGE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { ReposPagingSourceReal(networkDataSource) }
+            pagingSourceFactory = { ReposPagingSource(networkDataSource) }
         ).flow
 
         return reposStream

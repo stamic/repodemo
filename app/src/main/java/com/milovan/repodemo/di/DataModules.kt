@@ -1,10 +1,19 @@
 package com.milovan.repodemo.di
 
 import android.content.Context
-import com.milovan.repodemo.data.details.DetailsFactory
+import androidx.room.Room
+import com.milovan.repodemo.data.database.RepoDemoDatabase
+import com.milovan.repodemo.data.database.favoritecontribs.FavoriteContributorDao
 import com.milovan.repodemo.data.details.RepoDetailsRepository
+import com.milovan.repodemo.data.details.RepoDetailsRepositoryDefault
+import com.milovan.repodemo.data.favorites.FavoriteContributorsRepository
+import com.milovan.repodemo.data.favorites.FavoriteContributorsRepositoryDefault
+import com.milovan.repodemo.data.network.NetworkDataSource
+import com.milovan.repodemo.data.network.NetworkDataSourceRetrofit
 import com.milovan.repodemo.data.repos.ReposRepository
-import com.milovan.repodemo.data.repos.ReposFactory
+import com.milovan.repodemo.data.repos.ReposRepositorySimpleOnline
+import com.milovan.repodemo.data.repos.ReposRepositoryWithMediator
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,32 +30,65 @@ annotation class RepoSimple
 @Retention(AnnotationRetention.RUNTIME)
 annotation class RepoWithMediator
 
+
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+abstract class RepositoryModule {
 
     @Singleton
-    @Provides
+    @Binds
     @RepoWithMediator
-    fun provideReposRepositoryWithMediator(@ApplicationContext context: Context): ReposRepository {
-        val repo = ReposFactory.createWithMediator(context)
-        return repo
-    }
-
+    abstract fun bindReposMediatorRepository(
+        repository: ReposRepositoryWithMediator
+    ): ReposRepository
 
     @Singleton
-    @Provides
+    @Binds
     @RepoSimple
-    fun provideReposRepositorySimple(): ReposRepository {
-        val repo = ReposFactory.createWithoutDatabase()
-        return repo
-    }
+    abstract fun bindReposSimpleRepository(
+        repository: ReposRepositorySimpleOnline
+    ): ReposRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindDetailsRepository(
+        repository: RepoDetailsRepositoryDefault
+    ): RepoDetailsRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindFavoriteContributorRepository(
+        repository: FavoriteContributorsRepositoryDefault
+    ): FavoriteContributorsRepository
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class NetworkModule {
+    @Binds
+    abstract fun bindNetworkDataSource(
+        networkDataSource: NetworkDataSourceRetrofit
+    ): NetworkDataSource
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideReposDetailsRepository(): RepoDetailsRepository {
-        val repo = DetailsFactory.create()
-        return repo
+    fun provideDataBase(@ApplicationContext context: Context): RepoDemoDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            RepoDemoDatabase::class.java,
+            "database.dat"
+        ).build()
     }
+
+    @Provides
+    fun provideFavoriteContributorsDao(
+        database: RepoDemoDatabase
+    ): FavoriteContributorDao = database.favoriteContributorsDao()
 
 }
+

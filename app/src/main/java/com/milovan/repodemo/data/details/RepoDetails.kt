@@ -1,7 +1,7 @@
 package com.milovan.repodemo.data.details
 
-import com.milovan.repodemo.data.api.ContributorNetwork
-import com.milovan.repodemo.data.api.RepoDetailsNetwork
+import com.milovan.repodemo.data.network.details.ContributorNetwork
+import com.milovan.repodemo.data.network.details.RepoDetailsNetwork
 
 data class RepoDetails(
     val id: Long,

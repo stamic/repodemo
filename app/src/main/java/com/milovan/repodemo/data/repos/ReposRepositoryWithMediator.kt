@@ -5,14 +5,15 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.android.codelabs.paging.data.GithubRemoteMediator
-import com.milovan.repodemo.data.repos.local.Repo
-import com.milovan.repodemo.data.repos.local.RepoDatabase
-import com.milovan.repodemo.data.repos.remote.ReposNetworkDataSource
+import com.milovan.repodemo.data.database.RepoDemoDatabase
+import com.milovan.repodemo.data.database.repos.Repo
+import com.milovan.repodemo.data.network.NetworkDataSource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class ReposRepositoryWithMediator(
-    private val networkDataSource: ReposNetworkDataSource,
-    private val database: RepoDatabase
+class ReposRepositoryWithMediator @Inject constructor(
+    private val networkDataSource: NetworkDataSource,
+    private val database: RepoDemoDatabase
 ) : ReposRepository {
     override fun getReposStream(): Flow<PagingData<Repo>> {
         @OptIn(ExperimentalPagingApi::class)

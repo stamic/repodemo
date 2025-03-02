@@ -1,4 +1,4 @@
-package com.milovan.repodemo.data.api
+package com.milovan.repodemo.data.network.details
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

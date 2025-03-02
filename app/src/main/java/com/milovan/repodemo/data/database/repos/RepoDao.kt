@@ -1,4 +1,4 @@
-package com.milovan.repodemo.data.repos.local
+package com.milovan.repodemo.data.database.repos
 
 import androidx.paging.PagingSource
 import androidx.room.Dao

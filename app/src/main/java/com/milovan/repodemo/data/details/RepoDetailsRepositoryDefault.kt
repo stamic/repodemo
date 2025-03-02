@@ -1,9 +1,11 @@
 package com.milovan.repodemo.data.details
 
-import com.milovan.repodemo.data.details.remote.RepoDetailsNetworkDataSource
+import com.milovan.repodemo.data.network.NetworkDataSource
+import javax.inject.Inject
 
-class RepoDetailsRepositoryDefault(
-    private val networkDataSource: RepoDetailsNetworkDataSource
+
+class RepoDetailsRepositoryDefault @Inject constructor(
+    private val networkDataSource: NetworkDataSource
 ) : RepoDetailsRepository {
     override suspend fun getRepoDetails(owner: String, name: String): RepoDetails {
         val detailsNetwork = networkDataSource.getRepoDetails(owner, name)
