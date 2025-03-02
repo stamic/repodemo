@@ -1,4 +1,4 @@
-package com.milovan.repodemo.ui.favoritecontribs
+package com.milovan.repodemo.ui.favoritecommon
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

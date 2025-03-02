@@ -1,9 +1,9 @@
-package com.milovan.repodemo.ui.favoritecontribs
+package com.milovan.repodemo.ui.favoriterepos
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.milovan.repodemo.data.database.favoritecontribs.FavoriteContributor
-import com.milovan.repodemo.data.favoritecontribs.FavoriteContributorsRepository
+import com.milovan.repodemo.data.database.favoriterepos.FavoriteRepo
+import com.milovan.repodemo.data.favoriterepos.FavoriteReposRepository
 import com.milovan.repodemo.ui.favoritecommon.FavoriteUi
 import com.milovan.repodemo.ui.favoritecommon.FavoriteUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,15 +14,15 @@ import okio.IOException
 import retrofit2.HttpException
 import javax.inject.Inject
 
-private fun FavoriteContributor.toUi() = FavoriteUi(
+private fun FavoriteRepo.toUi() = FavoriteUi(
     id = id,
-    name = login,
+    name = name,
     avatarUrl = avatarUrl
 )
 
 @HiltViewModel
-class FavoriteContributorsViewModel @Inject constructor(
-    private val favoriteRepository: FavoriteContributorsRepository
+class FavoriteReposViewModel @Inject constructor(
+    private val favoriteRepository: FavoriteReposRepository
 ) : ViewModel() {
     private val _favoriteUiState = MutableStateFlow<FavoriteUiState>(FavoriteUiState.Loading)
     val favoriteUiState = _favoriteUiState.asStateFlow()

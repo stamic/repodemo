@@ -16,9 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -44,6 +41,10 @@ class HomeFragment : Fragment() {
 
         binding.btnFavoriteContribs.setOnClickListener {
             findNavController().navigate(R.id.favoriteContributorsFragment)
+        }
+
+        binding.btnFavoriteRepos.setOnClickListener {
+            findNavController().navigate(R.id.favoriteReposFragment)
         }
     }
 

@@ -24,11 +24,7 @@ class ReposPagingSource(
             val nextKey = pageNumber + 1
 
             val response = networkDataSource.getRepositories(params.loadSize, pageNumber)
-            val repos = if (response.items != null) {
-                response.items.map { it.toExternal() }
-            } else {
-                listOf()
-            }
+            val repos = response.items.map { it.toExternal() }
 
             return LoadResult.Page(
                 repos,

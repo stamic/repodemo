@@ -1,4 +1,4 @@
-package com.milovan.repodemo.ui.favoritecontribs
+package com.milovan.repodemo.ui.favoriterepos
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,11 +17,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FavoriteContributorsFragment : Fragment() {
+class FavoriteReposFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: FavoriteContributorsViewModel by viewModels()
+    private val viewModel: FavoriteReposViewModel by viewModels()
     private lateinit var favoritesAdapter: FavoritesAdapter
     private val itemRemoveClickHandler = { id: Long ->
         viewModel.deleteItem(id)
@@ -62,3 +62,4 @@ class FavoriteContributorsFragment : Fragment() {
 
     }
 }
+

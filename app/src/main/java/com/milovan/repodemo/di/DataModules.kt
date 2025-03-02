@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.room.Room
 import com.milovan.repodemo.data.database.RepoDemoDatabase
 import com.milovan.repodemo.data.database.favoritecontribs.FavoriteContributorDao
+import com.milovan.repodemo.data.database.favoriterepos.FavoriteRepoDao
 import com.milovan.repodemo.data.details.RepoDetailsRepository
 import com.milovan.repodemo.data.details.RepoDetailsRepositoryDefault
 import com.milovan.repodemo.data.favoritecontribs.FavoriteContributorsRepository
 import com.milovan.repodemo.data.favoritecontribs.FavoriteContributorsRepositoryDefault
+import com.milovan.repodemo.data.favoriterepos.FavoriteReposRepository
+import com.milovan.repodemo.data.favoriterepos.FavoriteReposRepositoryDefault
 import com.milovan.repodemo.data.network.NetworkDataSource
 import com.milovan.repodemo.data.network.NetworkDataSourceRetrofit
 import com.milovan.repodemo.data.repos.ReposRepository
@@ -60,6 +63,12 @@ abstract class RepositoryModule {
     abstract fun bindFavoriteContributorRepository(
         repository: FavoriteContributorsRepositoryDefault
     ): FavoriteContributorsRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindFavoriteReposRepository(
+        repository: FavoriteReposRepositoryDefault
+    ): FavoriteReposRepository
 }
 
 @Module
@@ -89,6 +98,11 @@ object DatabaseModule {
     fun provideFavoriteContributorsDao(
         database: RepoDemoDatabase
     ): FavoriteContributorDao = database.favoriteContributorsDao()
+
+    @Provides
+    fun provideFavoriteReposDao(
+        database: RepoDemoDatabase
+    ): FavoriteRepoDao = database.favoriteReposDao()
 
 }
 

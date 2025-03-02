@@ -1,4 +1,4 @@
-package com.milovan.repodemo.ui.favoritecontribs
+package com.milovan.repodemo.ui.favoritecommon
 
 sealed interface FavoriteUiState {
     data object Loading : FavoriteUiState

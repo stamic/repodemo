@@ -1,4 +1,4 @@
-package com.milovan.repodemo.ui.favoritecontribs
+package com.milovan.repodemo.ui.favoritecommon
 
 data class FavoriteUi(
     val id: Long,

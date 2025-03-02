@@ -6,6 +6,12 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
+        android:id="@+id/favoriteReposFragment"
+        android:name="com.milovan.repodemo.ui.favoriterepos.FavoriteReposFragment"
+        tools:layout="@layout/fragment_favorites"
+        android:label="Favorite Repositories"/>
+
+    <fragment
         android:id="@+id/favoriteContributorsFragment"
         android:name="com.milovan.repodemo.ui.favoritecontribs.FavoriteContributorsFragment"
         tools:layout="@layout/fragment_favorites"

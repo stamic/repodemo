@@ -1,4 +1,4 @@
-package com.milovan.repodemo.ui.favoritecontribs
+package com.milovan.repodemo.ui.favoritecommon
 
 import androidx.recyclerview.widget.RecyclerView
 import com.milovan.repodemo.databinding.ViewholderFavoriteBinding
