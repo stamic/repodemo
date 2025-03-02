@@ -1,10 +1,10 @@
 package com.milovan.repodemo.ui.repos
 
 import androidx.recyclerview.widget.RecyclerView
-import com.milovan.repodemo.databinding.RepoViewholderBinding
+import com.milovan.repodemo.databinding.ViewholderRepoBinding
 
 class RepoViewHolder(
-    private val binding: RepoViewholderBinding,
+    private val binding: ViewholderRepoBinding,
     private val listener: Listener
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -23,10 +23,10 @@ class RepoViewHolder(
         }
     }
 
-    fun bind(item: RepoAndFlag) {
+    fun bind(item: RepoUi) {
         binding.apply {
-            binding.textRepoId.text = item.repo.id.toString()
-            binding.textRepoName.text = item.repo.name
+            textRepoId.text = item.repo.id.toString()
+            textRepoName.text = item.repo.name
         }
     }
 }

@@ -1,8 +1,10 @@
 package com.milovan.repodemo.di
 
 import android.content.Context
+import com.milovan.repodemo.data.details.DetailsFactory
+import com.milovan.repodemo.data.details.RepoDetailsRepository
 import com.milovan.repodemo.data.repos.ReposRepository
-import com.milovan.repodemo.data.repos.ReposRepositoryFactory
+import com.milovan.repodemo.data.repos.ReposFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,8 +28,8 @@ object RepositoryModule {
     @Singleton
     @Provides
     @RepoWithMediator
-    fun provideRepoWithMediator(@ApplicationContext context: Context): ReposRepository {
-        val repo = ReposRepositoryFactory.createRepoWithMediator(context)
+    fun provideReposRepositoryWithMediator(@ApplicationContext context: Context): ReposRepository {
+        val repo = ReposFactory.createWithMediator(context)
         return repo
     }
 
@@ -35,8 +37,15 @@ object RepositoryModule {
     @Singleton
     @Provides
     @RepoSimple
-    fun provideRepoSimple(@ApplicationContext context: Context): ReposRepository {
-        val repo = ReposRepositoryFactory.createRepoWithoutDatabase()
+    fun provideReposRepositorySimple(): ReposRepository {
+        val repo = ReposFactory.createWithoutDatabase()
+        return repo
+    }
+
+    @Singleton
+    @Provides
+    fun provideReposDetailsRepository(): RepoDetailsRepository {
+        val repo = DetailsFactory.create()
         return repo
     }
 

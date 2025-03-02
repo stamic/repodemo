@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.milovan.repodemo.databinding.RepoViewholderBinding
-import timber.log.Timber
+import com.milovan.repodemo.databinding.ViewholderRepoBinding
 
 class ReposAdapter(
     private val listener: Listener
-) : PagingDataAdapter<RepoAndFlag, RepoViewHolder>(REPO_DIFF_CALLBACK) {
+) : PagingDataAdapter<RepoUi, RepoViewHolder>(DiffCallback) {
 
     interface Listener {
         fun onItemClicked(itemId: Long)
@@ -35,7 +34,7 @@ class ReposAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder =
         RepoViewHolder(
-            binding = RepoViewholderBinding.inflate(
+            binding = ViewholderRepoBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false,
@@ -51,11 +50,11 @@ class ReposAdapter(
     }
 
     companion object {
-        private val REPO_DIFF_CALLBACK = object : DiffUtil.ItemCallback<RepoAndFlag>() {
-            override fun areItemsTheSame(oldItem: RepoAndFlag, newItem: RepoAndFlag): Boolean =
+        private val DiffCallback = object : DiffUtil.ItemCallback<RepoUi>() {
+            override fun areItemsTheSame(oldItem: RepoUi, newItem: RepoUi): Boolean =
                 oldItem.repo.id == newItem.repo.id
 
-            override fun areContentsTheSame(oldItem: RepoAndFlag, newItem: RepoAndFlag): Boolean =
+            override fun areContentsTheSame(oldItem: RepoUi, newItem: RepoUi): Boolean =
                 oldItem == newItem
         }
     }

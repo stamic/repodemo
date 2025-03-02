@@ -5,15 +5,15 @@ import com.milovan.repodemo.data.repos.local.RepoDatabase
 import com.milovan.repodemo.data.repos.remote.RealNetworkDataSourceDefault
 import com.milovan.repodemo.data.api.createGithubService
 
-object ReposRepositoryFactory {
-    fun createRepoWithoutDatabase(): ReposRepository {
+object ReposFactory {
+    fun createWithoutDatabase(): ReposRepository {
         val api = createGithubService()
         val networkDataSource = RealNetworkDataSourceDefault(api)
         val repo = ReposRepositorySimpleOnline(networkDataSource)
         return repo
     }
 
-    fun createRepoWithMediator(context: Context): ReposRepository {
+    fun createWithMediator(context: Context): ReposRepository {
         val api = createGithubService()
         val networkDataSource = RealNetworkDataSourceDefault(api)
         val database = RepoDatabase.getInstance(context)

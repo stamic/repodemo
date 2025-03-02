@@ -6,6 +6,7 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 fun createGithubService(): GitHubRetrofitApi {
     val jsonNetwork = Json {
@@ -36,4 +37,9 @@ interface GitHubRetrofitApi {
         @Path("owner") owner: String,
         @Path("name") name: String
     ): RepoDetailsNetwork
+
+    @GET
+    suspend fun getContributors(
+        @Url url: String
+    ): List<ContributorNetwork>
 }

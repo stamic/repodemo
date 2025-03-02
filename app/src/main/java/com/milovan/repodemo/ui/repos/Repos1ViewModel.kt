@@ -1,7 +1,6 @@
 package com.milovan.repodemo.ui.repos
 
 import androidx.lifecycle.ViewModel
-import androidx.paging.filter
 import androidx.paging.map
 import com.milovan.repodemo.data.repos.ReposRepository
 import com.milovan.repodemo.di.RepoSimple
@@ -16,7 +15,7 @@ class Repos1ViewModel @Inject constructor(
 ) : ViewModel() {
     private val items = itemsRepository.getReposStream()
     val items1 = itemsRepository.getReposStream().map { pagingData ->
-        pagingData.map { repo -> RepoAndFlag(repo, false) }
+        pagingData.map { repo -> RepoUi(repo, false) }
     }
 
     val items2 = items1

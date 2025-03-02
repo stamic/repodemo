@@ -16,7 +16,7 @@ class ReposViewModel @Inject constructor(
 ) : ViewModel() {
     private val items = itemsRepository.getReposStream()
     val items1 = itemsRepository.getReposStream().map { pagingData ->
-        pagingData.map { repo -> RepoAndFlag(repo, false) }
+        pagingData.map { repo -> RepoUi(repo, false) }
     }
 
     val items2 = items1.map { p -> p.filter { r -> r.repo.name.contains("ko") } }
