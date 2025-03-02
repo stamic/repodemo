@@ -23,6 +23,7 @@ kotlinxSerializationJson = "1.8.0"
 okhttp = "4.12.0"
 pagingCommonAndroid = "3.3.6"
 navigationFragment = "2.7.7"
+parcelize = "1.7.20"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -59,4 +60,5 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 navigation-safeargs-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref ="navigationFragment" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref="kotlin" }
 

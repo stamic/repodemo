@@ -12,8 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.milovan.repodemo.data.database.repos.Repo
 import com.milovan.repodemo.databinding.FragmentReposBinding
 import com.milovan.repodemo.ui.details.DetailsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,13 +27,15 @@ class ReposFragment : Fragment() {
     private val viewModel: ReposViewModel by viewModels()
     lateinit var reposAdapter: ReposAdapter
 
-    val adapterListener = object : ReposAdapter.Listener {
-        override fun onItemClicked(itemId: Long) {
-            val action = DetailsFragmentDirections.actionToDetailsFragment(itemId.toString())
+    private val adapterListener = object : ReposAdapter.Listener {
+        override fun onItemClicked(repo: Repo) {
+            val action = DetailsFragmentDirections.actionToDetailsFragment(
+                "${repo.ownerLogin}:${repo.name}"
+            )
             findNavController().navigate(action)
         }
 
-        override fun onFavoriteClicked(itemId: Long) {
+        override fun onFavoriteClicked(repo: Repo) {
             TODO("Not yet implemented")
         }
 

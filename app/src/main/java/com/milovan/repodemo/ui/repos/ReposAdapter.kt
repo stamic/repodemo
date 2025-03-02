@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.milovan.repodemo.data.database.repos.Repo
 import com.milovan.repodemo.databinding.ViewholderRepoBinding
 
 class ReposAdapter(
@@ -11,15 +12,15 @@ class ReposAdapter(
 ) : PagingDataAdapter<RepoUi, RepoViewHolder>(DiffCallback) {
 
     interface Listener {
-        fun onItemClicked(itemId: Long)
-        fun onFavoriteClicked(itemId: Long)
+        fun onItemClicked(repo: Repo)
+        fun onFavoriteClicked(repo: Repo)
     }
 
     private val holderListener = object : RepoViewHolder.Listener {
         override fun onItemClicked(index: Int) {
             val item = getItem(index)
             item?.let {
-                listener.onItemClicked(it.repo.id)
+                listener.onItemClicked(it.repo)
             }
 
         }
@@ -27,7 +28,7 @@ class ReposAdapter(
         override fun onFavoriteClicked(index: Int) {
             val item = getItem(index)
             item?.let {
-                listener.onFavoriteClicked(it.repo.id)
+                listener.onFavoriteClicked(it.repo)
             }
         }
     }

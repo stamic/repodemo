@@ -16,10 +16,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
+// ne uspevam da uradim ovako
+//@Parcelize
+//class DetailsFragmentArgs(val owner: String, val name: String): Parcelable
+
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
+
+    // ne radi nesto
+//    private val args: DetailsFragmentArgs by navArgs()
 
     private val viewModel: DetailsViewModel by viewModels()
     private lateinit var contributorsAdapter: ContributorsAdapter
@@ -38,6 +45,13 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val argString = arguments?.getString("repoId") ?: "square:okhttp"
+        val args = argString.split(':')
+        if (args.size == 2) {
+            viewModel.setRepository(args[0], args[1])
+        }
+
 
         contributorsAdapter = ContributorsAdapter(itemFavoriteClickHandler)
         binding.bindAdapter(contributorsAdapter)

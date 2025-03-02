@@ -41,13 +41,13 @@ class DetailsViewModel @Inject constructor(
 
     private val favorites = hashSetOf<String>("udalov", "mglukhikh")
 
-    init {
-        fetchDetailsAndContributors()
+    fun setRepository(owner: String, name: String) {
+        fetchDetailsAndContributors(owner, name)
     }
 
-    private fun fetchDetailsAndContributors() {
+    private fun fetchDetailsAndContributors(owner: String, name: String) {
         viewModelScope.launch {
-            val details = fetchDetails()
+            val details = fetchDetails(owner, name)
             _detailsUiState.update { details }
             if (details is DetailsUiState.Success) {
                 val contributors = fetchContributors(details.repoDetails.contributorsUrl)
@@ -56,9 +56,9 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    private suspend fun fetchDetails(): DetailsUiState {
+    private suspend fun fetchDetails(owner: String, name: String): DetailsUiState {
        val result = try {
-            val details = repository.getRepoDetails("jetbrains", "kotlin")
+            val details = repository.getRepoDetails(owner, name)
            DetailsUiState.Success(details)
         } catch (e: IOException) {
            DetailsUiState.Error(e)
