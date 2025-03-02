@@ -26,8 +26,17 @@ class RepoViewHolder(
 
     fun bind(item: RepoUi) {
         binding.apply {
-            textRepoId.text = item.repo.id.toString()
-            textRepoName.text = item.repo.name
+            with(item.repo) {
+                textRepoName.text = name
+                textDescription.text = description
+                textOwnerLogin.text = "Owner: ${ownerLogin}"
+                textLanguage.text = language
+                textStars.text = "${stars} stars"
+                textForks.text = "Forks: ${forksCount}"
+                textIssues.text = "Issues: ${openIssues}"
+                textWatchers.text = "Watchers: $watchersCount"
+            }
+
             val imgResource = if (item.isFavorite) {
                 R.drawable.ic_favorite_24dp_filled
             } else {

@@ -4,44 +4,62 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true">
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="8dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="48dp">
 
-        <TextView
-            android:id="@+id/textRepoId"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Repo Id"/>
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textOwnerLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="login"/>
 
-        <TextView
-            android:id="@+id/textRepoName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Repo Name"/>
+            <TextView
+                android:id="@+id/textRepoName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Repo Name"/>
 
-        <TextView
-            android:id="@+id/textDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description"/>
+            <TextView
+                android:id="@+id/textDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:maxLines="2"
+                android:ellipsize="end"/>
 
-        <TextView
-            android:id="@+id/textLanguage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Language"/>
+            <TextView
+                android:id="@+id/textOwnerLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="login"/>
+
+            <TextView
+                android:id="@+id/textLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Language"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textStars"
@@ -68,6 +86,9 @@
             android:text="Watchers"/>
 
     </LinearLayout>
+
+    </LinearLayout>
+
 
     <ImageButton
         android:id="@+id/btnFavorite"
