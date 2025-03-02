@@ -1,6 +1,7 @@
 package com.milovan.repodemo.ui.repos
 
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.milovan.repodemo.R
 import com.milovan.repodemo.databinding.ViewholderRepoBinding
 
@@ -43,6 +44,10 @@ class RepoViewHolder(
                 R.drawable.ic_favorite_24dp_outlined
             }
             btnFavorite.setImageResource(imgResource)
+
+            Glide.with(binding.root.context)
+                .load(item.repo.ownerAvatarUrl)
+                .into(binding.imgAvatar)
         }
     }
 }
