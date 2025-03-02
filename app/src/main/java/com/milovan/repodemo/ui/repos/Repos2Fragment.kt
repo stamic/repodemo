@@ -20,14 +20,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ReposFragment : Fragment() {
+class Repos2Fragment : Fragment() {
     private var _binding: FragmentReposBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ReposViewModel by viewModels()
+    private val viewModel: Repos2ViewModel by viewModels()
     lateinit var reposAdapter: ReposAdapter
 
-    private val adapterListener = object : ReposAdapter.Listener {
+    val adapterListener = object : ReposAdapter.Listener {
         override fun onItemClicked(repo: Repo) {
             val action = DetailsFragmentDirections.actionToDetailsFragment(
                 "${repo.ownerLogin}:${repo.name}"
@@ -36,7 +36,7 @@ class ReposFragment : Fragment() {
         }
 
         override fun onFavoriteClicked(repo: Repo) {
-            TODO("Not yet implemented")
+            viewModel.toggleFavoriteRepo(repo)
         }
 
     }
@@ -58,7 +58,7 @@ class ReposFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.items2.collectLatest {
+                viewModel.pagedReposUiStream.collectLatest {
                     reposAdapter.submitData(it)
                 }
             }
@@ -74,4 +74,3 @@ class ReposFragment : Fragment() {
         }
     }
 }
-

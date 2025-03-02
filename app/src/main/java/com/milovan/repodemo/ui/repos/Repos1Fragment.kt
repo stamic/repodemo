@@ -27,7 +27,7 @@ class Repos1Fragment : Fragment() {
     private val viewModel: Repos1ViewModel by viewModels()
     lateinit var reposAdapter: ReposAdapter
 
-    val adapterListener = object : ReposAdapter.Listener {
+    private val adapterListener = object : ReposAdapter.Listener {
         override fun onItemClicked(repo: Repo) {
             val action = DetailsFragmentDirections.actionToDetailsFragment(
                 "${repo.ownerLogin}:${repo.name}"
@@ -36,7 +36,7 @@ class Repos1Fragment : Fragment() {
         }
 
         override fun onFavoriteClicked(repo: Repo) {
-            viewModel.toggleFavoriteRepo(repo)
+            TODO("Not yet implemented")
         }
 
     }
@@ -58,7 +58,7 @@ class Repos1Fragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.pagedReposUiStream.collectLatest {
+                viewModel.items2.collectLatest {
                     reposAdapter.submitData(it)
                 }
             }
@@ -74,3 +74,4 @@ class Repos1Fragment : Fragment() {
         }
     }
 }
+

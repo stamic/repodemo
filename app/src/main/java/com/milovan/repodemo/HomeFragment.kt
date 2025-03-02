@@ -32,11 +32,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnExample1.setOnClickListener {
-            findNavController().navigate(R.id.reposFragment)
+            findNavController().navigate(R.id.repos1Fragment)
         }
 
         binding.btnExample2.setOnClickListener {
-            findNavController().navigate(R.id.repos1Fragment)
+            findNavController().navigate(R.id.repos2Fragment)
         }
 
         binding.btnFavoriteContribs.setOnClickListener {

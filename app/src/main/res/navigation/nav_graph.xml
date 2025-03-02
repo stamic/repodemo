@@ -24,14 +24,14 @@
         android:label="Details"/>
 
     <fragment
-        android:id="@+id/reposFragment"
-        android:name="com.milovan.repodemo.ui.repos.ReposFragment"
+        android:id="@+id/repos1Fragment"
+        android:name="com.milovan.repodemo.ui.repos.Repos1Fragment"
         tools:layout="@layout/fragment_repos"
         android:label="Repos"/>
 
     <fragment
-        android:id="@+id/repos1Fragment"
-        android:name="com.milovan.repodemo.ui.repos.Repos1Fragment"
+        android:id="@+id/repos2Fragment"
+        android:name="com.milovan.repodemo.ui.repos.Repos2Fragment"
         tools:layout="@layout/fragment_repos"
         android:label="Repos"/>
 
