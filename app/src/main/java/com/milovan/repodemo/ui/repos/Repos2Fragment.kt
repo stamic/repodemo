@@ -1,10 +1,13 @@
 package com.milovan.repodemo.ui.repos
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,6 +45,16 @@ class Repos2Fragment : Fragment() {
 
     }
 
+    private val onTextChangeListener = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val query = s.toString().trim()
+            binding.list.scrollToPosition(0)
+            viewModel.searchRepos(query)
+        }
+        override fun afterTextChanged(s: Editable?) {}
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,14 +67,7 @@ class Repos2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchRepo.setOnKeyListener { _, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN) {
-                val query = binding.searchRepo.text.toString()
-                binding.list.scrollToPosition(0)
-                viewModel.searchRepos(query)
-            }
-            false
-        }
+        binding.searchRepo.addTextChangedListener(onTextChangeListener)
 
         reposAdapter = ReposAdapter(adapterListener)
         binding.bindAdapter(reposAdapter)
