@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imgAvatar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"/>
+        android:layout_width="72dp"
+        android:layout_height="72dp"/>
 
     <TextView
         android:id="@+id/textName"
@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
         android:text="Name"/>
 
     <ImageButton
