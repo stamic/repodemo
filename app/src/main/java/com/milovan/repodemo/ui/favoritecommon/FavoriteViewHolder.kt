@@ -1,6 +1,7 @@
 package com.milovan.repodemo.ui.favoritecommon
 
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.milovan.repodemo.databinding.ViewholderFavoriteBinding
 
 class FavoriteViewHolder(
@@ -15,8 +16,9 @@ class FavoriteViewHolder(
     }
 
     fun bind(item: FavoriteUi) {
-        binding.apply {
-            textName.text = item.name
-        }
+        binding.textName.text = item.name
+        Glide.with(binding.root.context)
+            .load(item.avatarUrl)
+            .into(binding.imgAvatar)
     }
 }
