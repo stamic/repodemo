@@ -11,10 +11,12 @@ import com.milovan.repodemo.data.repos.ReposRepository
 import com.milovan.repodemo.di.RepoSimple
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -27,7 +29,34 @@ class Repos2ViewModel @Inject constructor(
     private val _favoriteIdsStream: Flow<HashSet<Long>> =
         favoriteReposRepository.getStream().map { repos -> repos.map { it.id }.toHashSet()}
 
-    private val _pagedReposStream = itemsRepository.getReposStream().cachedIn(viewModelScope)
+    private val _reposStream = itemsRepository.getReposStream().cachedIn(viewModelScope)
+
+    private val _searchQuery = MutableStateFlow("")
+    private val _searchResultStream = _searchQuery.flatMapLatest { query ->
+        itemsRepository.getReposSearchStream(query)
+    }.cachedIn(viewModelScope)
+
+    private val _searchResultSnapshot = MutableStateFlow<List<Repo>>(listOf())
+
+    // moze i ovo da se koristi
+    val reposUiStream1 = combine(_reposStream, _searchResultSnapshot, _favoriteIdsStream, _searchQuery) {
+        allPagingData, repoList, favoriteIds, queryString ->
+        if(queryString.isEmpty()) {
+            makeFavoritePagedRepos(allPagingData, favoriteIds)
+        } else {
+            val pagingData = PagingData.from(repoList)
+            makeFavoritePagedRepos(pagingData, favoriteIds)
+        }
+    }
+
+    val reposUiStream2 = combine(_reposStream, _searchResultStream, _favoriteIdsStream, _searchQuery) {
+            allPagingData, searchPagingData, favoriteIds, queryString ->
+        if(queryString.isEmpty()) {
+            makeFavoritePagedRepos(allPagingData, favoriteIds)
+        } else {
+            makeFavoritePagedRepos(searchPagingData, favoriteIds)
+        }
+    }
 
     fun toggleFavoriteRepo(repo: Repo) {
         viewModelScope.launch {
@@ -40,16 +69,20 @@ class Repos2ViewModel @Inject constructor(
         }
     }
 
-    val pagedReposUiStream = _pagedReposStream.combine(_favoriteIdsStream) { pagingData, favoriteIds ->
-        makeFavoritePagedRepos(pagingData, favoriteIds)}
-
-    private fun makeFavoritePagedRepos(pagingData: PagingData<Repo>, favoriteIds: HashSet<Long>): PagingData<RepoUi> {
+    private fun makeFavoritePagedRepos(
+        pagingData: PagingData<Repo>, favoriteIds: HashSet<Long>
+    ): PagingData<RepoUi> {
         return pagingData.map { repo ->
             val isFavorite = favoriteIds.contains(repo.id)
-            if (isFavorite) {
-                Timber.d("${repo.name} je favorite")
-            }
             RepoUi(repo, isFavorite)
+        }
+    }
+
+    fun searchRepos(query: String) {
+        _searchQuery.update { query }
+        viewModelScope.launch {
+            val repos = itemsRepository.searchByQuery(query)
+            _searchResultSnapshot.update { repos }
         }
     }
 

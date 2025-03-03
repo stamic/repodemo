@@ -19,4 +19,12 @@ class ReposRepositoryFake : ReposRepository {
 
         return reposStream
     }
+
+    override fun getReposSearchStream(query: String): Flow<PagingData<Repo>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun searchByQuery(queryString: String): List<Repo> {
+        TODO("Not yet implemented")
+    }
 }

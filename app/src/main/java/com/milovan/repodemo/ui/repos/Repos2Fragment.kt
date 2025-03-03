@@ -1,6 +1,7 @@
 package com.milovan.repodemo.ui.repos
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,12 +54,21 @@ class Repos2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.searchRepo.setOnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN) {
+                val query = binding.searchRepo.text.toString()
+                binding.list.scrollToPosition(0)
+                viewModel.searchRepos(query)
+            }
+            false
+        }
+
         reposAdapter = ReposAdapter(adapterListener)
         binding.bindAdapter(reposAdapter)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.pagedReposUiStream.collectLatest {
+                viewModel.reposUiStream2.collectLatest {
                     reposAdapter.submitData(it)
                 }
             }

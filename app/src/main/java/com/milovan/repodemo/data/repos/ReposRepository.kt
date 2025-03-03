@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ReposRepository {
     fun getReposStream(): Flow<PagingData<Repo>>
+    fun getReposSearchStream(query: String): Flow<PagingData<Repo>>
+    suspend fun searchByQuery(queryString: String): List<Repo>
 }

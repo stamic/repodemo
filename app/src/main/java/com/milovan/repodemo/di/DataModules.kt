@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.milovan.repodemo.data.database.RepoDemoDatabase
 import com.milovan.repodemo.data.database.favoritecontribs.FavoriteContributorDao
 import com.milovan.repodemo.data.database.favoriterepos.FavoriteRepoDao
+import com.milovan.repodemo.data.database.repos.RepoDao
 import com.milovan.repodemo.data.details.RepoDetailsRepository
 import com.milovan.repodemo.data.details.RepoDetailsRepositoryDefault
 import com.milovan.repodemo.data.favoritecontribs.FavoriteContributorsRepository
@@ -103,6 +104,11 @@ object DatabaseModule {
     fun provideFavoriteReposDao(
         database: RepoDemoDatabase
     ): FavoriteRepoDao = database.favoriteReposDao()
+
+    @Provides
+    fun provideReposDao(
+        database: RepoDemoDatabase
+    ): RepoDao = database.reposDao()
 
 }
 
